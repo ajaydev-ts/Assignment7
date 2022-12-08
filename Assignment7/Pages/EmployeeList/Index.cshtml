@@ -1,0 +1,62 @@
+﻿@page
+@model Assignment7.Pages.EmployeeList.IndexModel
+
+
+<br>
+<div class="container row p-0 m-0">
+    <div class="col-9">
+        <h2 class="text-info">Employee List</h2>
+    </div>
+    <div class="col-3">
+        <a asp-page="Create" class="btn btn-info form-control text-white">Create New Employee</a>
+    </div>
+
+
+    <div class="col-12 border p-3 mt-3">
+        <form method="post">
+            @if (Model.Employees.Count() > 0)
+            {
+                <table class="table table-striped border">
+                    <tr class="table-secondary">
+                        <th>
+                            <label asp-for="Employees.FirstOrDefault().Id"></label>
+                        </th>
+                        <th>
+                            <label asp-for="Employees.FirstOrDefault().EmployeeName"></label>
+                        </th>
+                        <th>
+                            @* @Html.DisplayNameFor(m=>m.Employees.FirstOrDefault().Department)*@
+                            <label asp-for="Employees.FirstOrDefault().Department"></label>
+
+                        </th>
+                        <th></th>
+                    </tr>
+                    @foreach (var item in Model.Employees)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(m=>item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m=>item.EmployeeName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m=>item.Department)
+                            </td>
+                            <td>
+                                <button asp-page-handler="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm" onclick=" return confirm('Are you sure you want to delete?') ">Delete</button>
+                                <a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-success btn-sm text-white">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <p>No Employees Available</p>
+            }
+        </form>
+    </div>
+
+  
+</div>
